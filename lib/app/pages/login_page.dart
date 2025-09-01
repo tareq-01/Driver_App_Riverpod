@@ -40,7 +40,6 @@ class LoginPage extends StatelessWidget {
                     text: "Password",
                     obs: true,
                     suffix: SvgPicture.asset(
-                      
                       "assets/svg_icon/visibility.svg",
                       height: 24,
                       width: 24,
