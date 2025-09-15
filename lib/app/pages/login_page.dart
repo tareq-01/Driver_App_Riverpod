@@ -51,15 +51,22 @@ class LoginPage extends ConsumerWidget {
                     onChanged: (v) {
                       loginController.passChecker();
                     },
-                    obs: true,
-                    suffix: SvgPicture.asset(
-                      "assets/svg_icon/visibility.svg",
-                      height: 24,
-                      width: 24,
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        AppColors.visibilityIconColor,
-                        BlendMode.srcIn,
+                    obs: teState.isObscure,
+                    suffix: InkWell(
+                      onTap: () {
+                        loginController.showPassword();
+                      },
+                      child: SvgPicture.asset(
+                        teState.isObscure
+                            ? "assets/svg_icon/visibility.svg"
+                            : "assets/svg_icon/visibility_off.svg",
+                        height: 24,
+                        width: 24,
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                          AppColors.visibilityIconColor,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),

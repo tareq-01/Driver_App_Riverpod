@@ -10,6 +10,10 @@ class LoginNotifier extends StateNotifier<Response> {
   final TextEditingController emailTEcontroller = TextEditingController();
 
   final TextEditingController passTEcontroller = TextEditingController();
+  void showPassword() {
+    state = state.copyWith(isObscure: !state.isObscure);
+    //state = state.copyWith(isObscure: state.isObscure = !state.isObscure);
+  }
 
   void emailChecker() {
     if (emailTEcontroller.text.trim().isEmpty) {

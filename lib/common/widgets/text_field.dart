@@ -53,6 +53,7 @@ class TextFieldWidget extends StatelessWidget {
           padding: const EdgeInsets.only(right: 12),
           child: suffix,
         ),
+
         suffixIconConstraints: BoxConstraints(),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
