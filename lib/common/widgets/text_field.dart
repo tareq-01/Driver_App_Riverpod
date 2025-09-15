@@ -10,17 +10,23 @@ class TextFieldWidget extends StatelessWidget {
     required this.text,
     this.suffix,
     this.obs = false,
+    this.onChanged,
+    this.errorText,
   });
   final TextEditingController controller;
   final String text;
+  final String? errorText;
   final Widget? suffix;
   final bool? obs;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obs!,
+      controller: controller,
       decoration: InputDecoration(
+        errorText: errorText,
         filled: true,
         fillColor: AppColors.whiteColor,
         errorBorder: OutlineInputBorder(
@@ -53,6 +59,7 @@ class TextFieldWidget extends StatelessWidget {
           borderSide: BorderSide(color: AppColors.hintBorderColor),
         ),
       ),
+      onChanged: onChanged,
     );
   }
 }

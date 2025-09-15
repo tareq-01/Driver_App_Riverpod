@@ -17,24 +17,28 @@ class ElevatedButtonStyle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: buttonWidth ?? 170,
-      decoration: BoxDecoration(
-        color: AppColors.primaryColor,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style:
-                  buttonTextStyle ??
-                  AppStyles().semiBold16TextStyle(AppColors.whiteColor),
-            ),
-          ],
+    final bool isDisabled = onTap == null;
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: buttonWidth ?? 170,
+        decoration: BoxDecoration(
+          color: isDisabled ? Colors.grey : AppColors.primaryColor,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style:
+                    buttonTextStyle ??
+                    AppStyles().semiBold16TextStyle(AppColors.whiteColor),
+              ),
+            ],
+          ),
         ),
       ),
     );

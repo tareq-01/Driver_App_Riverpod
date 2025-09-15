@@ -1,23 +1,24 @@
 import 'package:driver_app/common/constant/colors.dart';
+import 'package:driver_app/common/constant/controller/notifier.dart';
 import 'package:driver_app/common/widgets/elevated_button.dart';
 import 'package:driver_app/common/widgets/remember_me_widget.dart';
 import 'package:driver_app/common/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../common/widgets/top_title_section.dart';
 
 // ignore: must_be_immutable
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerWidget {
   LoginPage({super.key});
-
-  final TextEditingController emailTEcontroller = TextEditingController();
-
-  final TextEditingController passTEcontroller = TextEditingController();
 
   bool isChecked = true;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginController = ref.read(loginProvider.notifier);
+    final teState = ref.watch(loginProvider);
+
     return SafeArea(
       top: false,
 
@@ -33,11 +34,23 @@ class LoginPage extends StatelessWidget {
                   SizedBox(height: 132),
                   TopTitleSection(),
                   SizedBox(height: 32),
-                  TextFieldWidget(controller: emailTEcontroller, text: 'Email'),
-                  SizedBox(height: 28),
                   TextFieldWidget(
-                    controller: passTEcontroller,
+                    controller: loginController.emailTEcontroller,
+                    errorText: teState.emailErrorMessage,
+                    text: 'Email',
+                    onChanged: (v) {
+                      loginController.emailChecker();
+                    },
+                  ),
+                  SizedBox(height: 28),
+
+                  TextFieldWidget(
+                    controller: loginController.passTEcontroller,
                     text: "Password",
+                    errorText: teState.passErrorMessage,
+                    onChanged: (v) {
+                      loginController.passChecker();
+                    },
                     obs: true,
                     suffix: SvgPicture.asset(
                       "assets/svg_icon/visibility.svg",
@@ -60,7 +73,10 @@ class LoginPage extends StatelessWidget {
 
                   SizedBox(height: 28),
                   Center(
-                    child: ElevatedButtonStyle(text: "Sign In", onTap: () {}),
+                    child: ElevatedButtonStyle(
+                      onTap: teState.isButtonEnable! ? () {} : null,
+                      text: "Sign In",
+                    ),
                   ),
                 ],
               ),
