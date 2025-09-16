@@ -12,4 +12,9 @@ class AppColors {
   static const Color checkBoxColor = Color(0xFF7F8B85);
   static const Color primaryColor = Color(0xFF448967);
   static const Color whiteColor = Color(0xFFffffff);
+  static const Color arrowButton500Color = Color(0xFF0E1826);
+  static const Color iconColor = Color(0xFF7F8B85);
+  static const Color subTitle600Color = Color(0xFF242826);
+  static const Color primary600Color = Color(0xFF448967);
+  static const Color ternary500Color = Color(0xFFD96260);
 }

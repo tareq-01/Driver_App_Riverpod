@@ -1,3 +1,4 @@
+import 'package:driver_app/app/pages/shift_planner_page.dart';
 import 'package:driver_app/common/constant/colors.dart';
 import 'package:driver_app/common/constant/controller/notifier.dart';
 import 'package:driver_app/common/widgets/elevated_button.dart';
@@ -81,7 +82,16 @@ class LoginPage extends ConsumerWidget {
                   SizedBox(height: 28),
                   Center(
                     child: ElevatedButtonStyle(
-                      onTap: teState.isButtonEnable! ? () {} : null,
+                      onTap: teState.isButtonEnable!
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ShiftPlannerPage(),
+                                ),
+                              );
+                            }
+                          : null,
                       text: "Sign In",
                     ),
                   ),

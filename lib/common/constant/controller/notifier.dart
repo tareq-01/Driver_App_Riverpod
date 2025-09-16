@@ -11,41 +11,50 @@ class LoginNotifier extends StateNotifier<Response> {
 
   final TextEditingController passTEcontroller = TextEditingController();
   void showPassword() {
-    state = state.copyWith(isObscure: !state.isObscure);
-    //state = state.copyWith(isObscure: state.isObscure = !state.isObscure);
+    state = state.copyWith(
+      isObscure: !state.isObscure,
+      emailErrorMessage: state.emailErrorMessage,
+      passErrorMessage: state.passErrorMessage,
+    );
   }
 
   void emailChecker() {
+    String? errorText;
+    bool? isButtonEnabled;
     if (emailTEcontroller.text.trim().isEmpty) {
-      //log("her");
-      state = state.copyWith(
-        emailErrorMessage: "Email Can't be Empty",
-        isButtonEnable: false,
-      );
+      errorText = "Email Can't be Empty";
+      isButtonEnabled = false;
     } else if (!Utility().validateEmail(emailTEcontroller.text.trim())) {
-      state = state.copyWith(
-        emailErrorMessage: "Email is Invalid",
-        isButtonEnable: false,
-      );
+      errorText = "Email is Invalid";
+      isButtonEnabled = false;
     } else {
-      state = state.copyWith(emailErrorMessage: null, isButtonEnable: true);
+      errorText = null;
+      isButtonEnabled = true;
     }
+    state = state.copyWith(
+      emailErrorMessage: errorText,
+      isButtonEnable: isButtonEnabled,
+    );
   }
 
   void passChecker() {
+    String? errorText;
+    bool? isButtonEnabled;
+
     if (passTEcontroller.text.isEmpty) {
-      state = state.copyWith(
-        passErrorMessage: "Password Can't be Empty",
-        isButtonEnable: false,
-      );
+      errorText = "Password Can't be Empty";
+      isButtonEnabled = false;
     } else if (!Utility().validatePassword(passTEcontroller.text)) {
-      state = state.copyWith(
-        passErrorMessage: "Password Must be 8 Characters",
-        isButtonEnable: false,
-      );
+      errorText = "Password Must be 8 Characters";
+      isButtonEnabled = false;
     } else {
-      state = state.copyWith(passErrorMessage: null, isButtonEnable: true);
+      errorText = null;
+      isButtonEnabled = true;
     }
+    state = state.copyWith(
+      passErrorMessage: errorText,
+      isButtonEnable: isButtonEnabled,
+    );
   }
 }
 

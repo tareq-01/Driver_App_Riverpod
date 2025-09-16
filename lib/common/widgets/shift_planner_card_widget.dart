@@ -1,0 +1,121 @@
+import 'package:driver_app/app/pages/shift_details_page.dart';
+import 'package:driver_app/common/constant/colors.dart';
+import 'package:driver_app/common/constant/text_style.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class ShiftPlannerCardDetailsWidget extends StatelessWidget {
+  const ShiftPlannerCardDetailsWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Card(
+                  child: Container(
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Container(
+                      height: 70,
+                      // color: Colors.amber,
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/svg_icon/calendar_clock.svg',
+                            height: 26,
+                            width: 24,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.iconColor,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Ongoing | Shift386015",
+                                  style: AppStyles().subTitle600ColorTextStyle(
+                                    AppColors.subTitle600Color,
+                                  ),
+                                ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+
+                                  children: [
+                                    Text(
+                                      "02 Sept.2025, 12:00 - 3:00",
+
+                                      style: AppStyles().regular12TextStyle(
+                                        AppColors.grey700Color,
+                                      ),
+                                    ),
+
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ShiftDetailsPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: SvgPicture.asset(
+                                        "assets/svg_icon/keyboard_arrow_right.svg",
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "20/4 - Pallabi, Mirpur, Dhaka-1216, Bangladesh 20/4 - Pallabi, Mirpur, Dhaka-1216, Bangladesh",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: AppStyles().address600ColorTextStyle(
+                                      AppColors.grey700Color,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: SvgPicture.asset(
+                              "assets/svg_icon/Ellipse 717.svg",
+                              width: 6,
+                              height: 6,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
