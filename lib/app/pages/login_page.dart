@@ -1,4 +1,3 @@
-import 'package:driver_app/app/pages/shift_planner_page.dart';
 import 'package:driver_app/common/constant/colors.dart';
 import 'package:driver_app/common/constant/controller/notifier.dart';
 import 'package:driver_app/common/widgets/elevated_button.dart';
@@ -12,8 +11,6 @@ import '../../common/widgets/top_title_section.dart';
 // ignore: must_be_immutable
 class LoginPage extends ConsumerWidget {
   LoginPage({super.key});
-
-  bool isChecked = true;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -73,9 +70,10 @@ class LoginPage extends ConsumerWidget {
                   ),
                   SizedBox(height: 30),
                   RememberMeWidget(
-                    isChecked: isChecked,
+                    isChecked: teState.isChecked,
                     onChange: () {
-                      isChecked = !isChecked;
+                      //isChecked = !isChecked;
+                      loginController.rememberMe();
                     },
                   ),
 
@@ -83,13 +81,9 @@ class LoginPage extends ConsumerWidget {
                   Center(
                     child: ElevatedButtonStyle(
                       onTap: teState.isButtonEnable!
-                          ? () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ShiftPlannerPage(),
-                                ),
-                              );
+                          ? () async {
+                             
+                              await loginController.login(context);
                             }
                           : null,
                       text: "Sign In",

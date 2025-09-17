@@ -1,11 +1,32 @@
+import 'dart:developer';
+
+import 'package:driver_app/app/pages/shift_details_page.dart';
+import 'package:driver_app/common/constant/auth.dart';
+import 'package:driver_app/common/constant/controller/network_caller.dart';
+import 'package:driver_app/common/constant/controller/network_response.dart';
 import 'package:driver_app/common/constant/response.dart';
+import 'package:driver_app/common/constant/urls.dart';
 import 'package:driver_app/common/constant/utility.dart';
+import 'package:driver_app/common/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginNotifier extends StateNotifier<Response> {
   // LoginNotifier(super.state);
-  LoginNotifier() : super(Response());
+  LoginNotifier() : super(Response()) {
+    checkToken();
+  }
+
+  void checkToken() async {
+    String? token = await AuthUtility.getToken();
+    log(token.toString());
+    if (token != null) {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => ShiftDetailsPage()),
+      // );
+    }
+  }
 
   final TextEditingController emailTEcontroller = TextEditingController();
 
@@ -13,6 +34,14 @@ class LoginNotifier extends StateNotifier<Response> {
   void showPassword() {
     state = state.copyWith(
       isObscure: !state.isObscure,
+      emailErrorMessage: state.emailErrorMessage,
+      passErrorMessage: state.passErrorMessage,
+    );
+  }
+
+  void rememberMe() {
+    state = state.copyWith(
+      isChecked: !state.isChecked!,
       emailErrorMessage: state.emailErrorMessage,
       passErrorMessage: state.passErrorMessage,
     );
@@ -34,6 +63,7 @@ class LoginNotifier extends StateNotifier<Response> {
     state = state.copyWith(
       emailErrorMessage: errorText,
       isButtonEnable: isButtonEnabled,
+      passErrorMessage: state.passErrorMessage,
     );
   }
 
@@ -54,7 +84,32 @@ class LoginNotifier extends StateNotifier<Response> {
     state = state.copyWith(
       passErrorMessage: errorText,
       isButtonEnable: isButtonEnabled,
+      emailErrorMessage: state.emailErrorMessage,
     );
+  }
+
+  Future<void> login(BuildContext context) async {
+    NetworkResponse response = await NetworkCaller().postRequest(
+      Urls.loginUrl,
+      body: {
+        "username": emailTEcontroller.text.trim(),
+        "password": passTEcontroller.text,
+        "requestFrom": "DriverApp",
+      },
+    );
+    if (response.isSuccess == true) {
+      SnackMessage(context, "Login Successfully");
+      String token = response.jsonResponse["data"]['token'];
+      log(token);
+      await AuthUtility.saveToken(token);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ShiftDetailsPage()),
+      );
+    } else {
+      SnackMessage(context, "Login Failed", true);
+    }
   }
 }
 
