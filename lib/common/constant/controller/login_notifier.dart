@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:driver_app/app/pages/shift_details_page.dart';
 import 'package:driver_app/common/constant/auth.dart';
 import 'package:driver_app/common/constant/controller/network_caller.dart';
@@ -16,15 +15,19 @@ class LoginNotifier extends StateNotifier<Response> {
   LoginNotifier() : super(Response()) {
     checkToken();
   }
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+  static Future<dynamic>? navigateTo(Widget page) {
+    return navigatorKey.currentState?.push(
+      MaterialPageRoute(builder: (_) => page),
+    );
+  }
 
   void checkToken() async {
     String? token = await AuthUtility.getToken();
     log(token.toString());
     if (token != null) {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => ShiftDetailsPage()),
-      // );
+      LoginNotifier.navigateTo(ShiftDetailsPage());
     }
   }
 
@@ -88,6 +91,7 @@ class LoginNotifier extends StateNotifier<Response> {
     );
   }
 
+
   Future<void> login(BuildContext context) async {
     NetworkResponse response = await NetworkCaller().postRequest(
       Urls.loginUrl,
@@ -102,6 +106,7 @@ class LoginNotifier extends StateNotifier<Response> {
       String token = response.jsonResponse["data"]['token'];
       log(token);
       await AuthUtility.saveToken(token);
+      log("token: $token");
 
       Navigator.push(
         context,

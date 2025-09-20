@@ -1,5 +1,5 @@
 import 'package:driver_app/common/constant/colors.dart';
-import 'package:driver_app/common/constant/controller/notifier.dart';
+import 'package:driver_app/common/constant/controller/login_notifier.dart';
 import 'package:driver_app/common/widgets/elevated_button.dart';
 import 'package:driver_app/common/widgets/remember_me_widget.dart';
 import 'package:driver_app/common/widgets/text_field.dart';

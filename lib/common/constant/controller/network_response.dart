@@ -9,6 +9,5 @@ class NetworkResponse {
     this.statusCode = 1,
     this.jsonResponse,
   });
-
   
 }

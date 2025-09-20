@@ -1,20 +1,23 @@
 import 'package:driver_app/app/pages/shift_details_page.dart';
 import 'package:driver_app/common/constant/colors.dart';
 import 'package:driver_app/common/constant/text_style.dart';
+import 'package:driver_app/common/model/shift_Planner_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ShiftPlannerCardDetailsWidget extends StatelessWidget {
-  const ShiftPlannerCardDetailsWidget({super.key});
-
+  const ShiftPlannerCardDetailsWidget({super.key, required this.shiftList});
+  final List<ShiftList> shiftList;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ListView.builder(
           shrinkWrap: true,
-          itemCount: 5,
+          itemCount: shiftList.length,
           itemBuilder: (context, index) {
+            //final ShiftList shift = ShiftList.fromJson();
+            final shift = shiftList[index];
             return Column(
               children: [
                 Card(
@@ -26,7 +29,6 @@ class ShiftPlannerCardDetailsWidget extends StatelessWidget {
                     ),
                     child: Container(
                       height: 70,
-                      // color: Colors.amber,
                       padding: EdgeInsets.all(10),
                       child: Row(
                         children: [
@@ -47,7 +49,9 @@ class ShiftPlannerCardDetailsWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Ongoing | Shift386015",
+                                  //"Ongoing | Shift386015",
+                                  shift.scheduledEnd.toString(),
+
                                   style: AppStyles().subTitle600ColorTextStyle(
                                     AppColors.subTitle600Color,
                                   ),

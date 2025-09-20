@@ -17,4 +17,5 @@ class AuthUtility {
     final pref = await SharedPreferences.getInstance();
     await pref.remove(_tokenKey);
   }
+   
 }

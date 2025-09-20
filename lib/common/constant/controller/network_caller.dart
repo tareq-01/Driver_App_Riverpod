@@ -11,7 +11,7 @@ class NetworkCaller {
     Map<String, dynamic>? body,
   }) async {
     try {
-      Map<String, String> headers = {"Content-type": "application/json"};
+      Map<String, String> headers = {"Content-type":"application/json"};
       final response = await post(
         Uri.parse(url),
         body: jsonEncode(body),
@@ -38,9 +38,13 @@ class NetworkCaller {
   }
 
   ///Get Request
-  Future<NetworkResponse> getRequest(String url) async {
+  Future<NetworkResponse> getRequest(String url, String token) async {
     try {
-      final response = await get(Uri.parse(url));
+      Map<String, String> headers = {
+       // "Connection": "keep-alive",
+        'Authorization': 'Bearer $token',
+      };
+      final response = await get(Uri.parse(url), headers: headers);
       if (response.statusCode == 200) {
         return NetworkResponse(
           isSuccess: true,

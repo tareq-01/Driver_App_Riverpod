@@ -7,14 +7,9 @@ import 'package:driver_app/common/widgets/shift_details_time_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ShiftDetailsPage extends StatefulWidget {
+class ShiftDetailsPage extends StatelessWidget {
   const ShiftDetailsPage({super.key});
 
-  @override
-  State<ShiftDetailsPage> createState() => _ShiftDetailsPageState();
-}
-
-class _ShiftDetailsPageState extends State<ShiftDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;

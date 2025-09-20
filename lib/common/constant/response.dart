@@ -4,6 +4,7 @@ class Response {
   bool? isButtonEnable;
   bool isObscure;
   bool? isChecked;
+  
 
   Response({
     this.emailErrorMessage,
@@ -11,6 +12,7 @@ class Response {
     this.passErrorMessage,
     this.isObscure = true,
     this.isChecked = true,
+   
   });
 
   Response copyWith({
@@ -19,6 +21,7 @@ class Response {
     String? passErrorMessage,
     bool? isObscure,
     bool? isChecked,
+    
   }) {
     return Response(
       emailErrorMessage: emailErrorMessage,
@@ -26,6 +29,7 @@ class Response {
       isButtonEnable: isButtonEnable ?? this.isButtonEnable,
       isObscure: isObscure ?? this.isObscure,
       isChecked: isChecked ?? this.isChecked,
+      
     );
   }
 }
