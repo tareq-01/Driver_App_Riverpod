@@ -11,7 +11,7 @@ class NetworkCaller {
     Map<String, dynamic>? body,
   }) async {
     try {
-      Map<String, String> headers = {"Content-type": "application/json"};
+      Map<String, String> headers = {"Content-type":"application/json"};
       final response = await post(
         Uri.parse(url),
         body: jsonEncode(body),

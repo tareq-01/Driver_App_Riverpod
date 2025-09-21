@@ -10,11 +10,10 @@ import 'package:driver_app/common/constant/utility.dart';
 import 'package:driver_app/common/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as ref;
 
-class LoginNotifier extends StateNotifier<Response> {
+class LoginNotifier extends StateNotifier<LoginState> {
   // LoginNotifier(super.state);
-  LoginNotifier() : super(Response()) {
+  LoginNotifier() : super(LoginState()) {
     checkToken();
   }
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -106,6 +105,7 @@ class LoginNotifier extends StateNotifier<Response> {
       String token = response.jsonResponse["data"]['token'];
       log(token);
       await AuthUtility.saveToken(token);
+      log("token: $token");
 
       Navigator.push(
         context,
@@ -119,6 +119,6 @@ class LoginNotifier extends StateNotifier<Response> {
   }
 }
 
-final loginProvider = StateNotifierProvider<LoginNotifier, Response>(
+final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
   (ref) => LoginNotifier(),
 );

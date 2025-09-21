@@ -1,11 +1,11 @@
-class Response {
+class LoginState {
   String? emailErrorMessage;
   String? passErrorMessage;
   bool? isButtonEnable;
   bool isObscure;
   bool? isChecked;
 
-  Response({
+  LoginState({
     this.emailErrorMessage,
     this.isButtonEnable = false,
     this.passErrorMessage,
@@ -13,14 +13,14 @@ class Response {
     this.isChecked = true,
   });
 
-  Response copyWith({
+  LoginState copyWith({
     String? emailErrorMessage,
     bool? isButtonEnable,
     String? passErrorMessage,
     bool? isObscure,
     bool? isChecked,
   }) {
-    return Response(
+    return LoginState(
       emailErrorMessage: emailErrorMessage,
       passErrorMessage: passErrorMessage,
       isButtonEnable: isButtonEnable ?? this.isButtonEnable,

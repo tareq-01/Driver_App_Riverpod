@@ -8,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ShiftPlannerCardDetailsWidget extends StatelessWidget {
   const ShiftPlannerCardDetailsWidget({super.key, required this.shiftList});
   final List<ShiftList> shiftList;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +28,6 @@ class ShiftPlannerCardDetailsWidget extends StatelessWidget {
                     ),
                     child: Container(
                       height: 70,
-                      // color: Colors.amber,
                       padding: EdgeInsets.all(10),
                       child: Row(
                         children: [
@@ -51,21 +49,22 @@ class ShiftPlannerCardDetailsWidget extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-Text(
-                                 "${ shift.status.toString()} | ",
-                                  style: AppStyles().subTitle600ColorTextStyle(
-                                    AppColors.subTitle600Color,
-                                  ),
-                                ),
-                                Text(
-                                  shift.id.toString(),
-                                  style: AppStyles().subTitle600ColorTextStyle(
-                                    AppColors.subTitle600Color,
-                                  ),
-                                ),
+                                    Text(
+                                      "${shift.status.toString()} | ",
+                                      style: AppStyles()
+                                          .subTitle600ColorTextStyle(
+                                            AppColors.subTitle600Color,
+                                          ),
+                                    ),
+                                    Text(
+                                      shift.id.toString(),
+                                      style: AppStyles()
+                                          .subTitle600ColorTextStyle(
+                                            AppColors.subTitle600Color,
+                                          ),
+                                    ),
                                   ],
                                 ),
-                                
 
                                 Row(
                                   mainAxisAlignment:
@@ -113,7 +112,8 @@ Text(
                                 ),
                                 Expanded(
                                   child: Text(
-shift.car.toString()                                    overflow: TextOverflow.ellipsis,
+                                    shift.car.toString(),
+                                    overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: AppStyles().address600ColorTextStyle(
                                       AppColors.grey700Color,
