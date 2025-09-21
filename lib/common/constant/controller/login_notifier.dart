@@ -1,35 +1,39 @@
 import 'dart:developer';
-
-import 'package:driver_app/app/pages/shift_details_page.dart';
+import 'package:driver_app/app/pages/shift_planner_page.dart';
 import 'package:driver_app/common/constant/auth.dart';
 import 'package:driver_app/common/constant/controller/network_caller.dart';
 import 'package:driver_app/common/constant/controller/network_response.dart';
+import 'package:driver_app/common/constant/controller/shift_planner_notifier.dart';
 import 'package:driver_app/common/constant/response.dart';
 import 'package:driver_app/common/constant/urls.dart';
 import 'package:driver_app/common/constant/utility.dart';
 import 'package:driver_app/common/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as ref;
 
 class LoginNotifier extends StateNotifier<Response> {
   // LoginNotifier(super.state);
   LoginNotifier() : super(Response()) {
     checkToken();
   }
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+  static Future<dynamic> navigateTo(Widget page) {
+    return navigatorKey.currentState!.push(
+      MaterialPageRoute(builder: (_) => page),
+    );
+  }
 
-  void checkToken() async {
+  Future<void> checkToken() async {
     String? token = await AuthUtility.getToken();
     log(token.toString());
     if (token != null) {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => ShiftDetailsPage()),
-      // );
+      navigateTo(ShiftPlannerPage());
     }
   }
 
   final TextEditingController emailTEcontroller = TextEditingController();
-
   final TextEditingController passTEcontroller = TextEditingController();
   void showPassword() {
     state = state.copyWith(
@@ -88,7 +92,7 @@ class LoginNotifier extends StateNotifier<Response> {
     );
   }
 
-  Future<void> login(BuildContext context) async {
+  Future<void> login(context) async {
     NetworkResponse response = await NetworkCaller().postRequest(
       Urls.loginUrl,
       body: {
@@ -105,8 +109,10 @@ class LoginNotifier extends StateNotifier<Response> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ShiftDetailsPage()),
+        MaterialPageRoute(builder: (context) => ShiftPlannerPage()),
       );
+      ShiftPlannerNotifier shiftPlannerNotifier = ShiftPlannerNotifier();
+      shiftPlannerNotifier.loadShiftPlannerData(context);
     } else {
       SnackMessage(context, "Login Failed", true);
     }

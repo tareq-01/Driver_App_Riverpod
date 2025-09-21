@@ -38,10 +38,16 @@ class NetworkCaller {
   }
 
   ///Get Request
-  Future<NetworkResponse> getRequest(String url) async {
+  Future<NetworkResponse> getRequest(String url, String token) async {
     try {
-      final response = await get(Uri.parse(url));
+      Map<String, String> headers = {
+        "Content-type": "application/json",
+        "Authorization": "Bearer $token",
+      };
+
+      final response = await get(Uri.parse(url), headers: headers);
       if (response.statusCode == 200) {
+        log(response.body);
         return NetworkResponse(
           isSuccess: true,
           statusCode: 200,

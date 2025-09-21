@@ -4,7 +4,7 @@ class NetworkResponse {
    int statusCode;
   final dynamic jsonResponse;
   NetworkResponse({
-     required this.isSuccess,
+      required this.isSuccess,
     this.errorMessage,
     this.statusCode = 1,
     this.jsonResponse,
