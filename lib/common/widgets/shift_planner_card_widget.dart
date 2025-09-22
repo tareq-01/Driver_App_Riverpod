@@ -6,10 +6,35 @@ import 'package:driver_app/common/constant/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';// Add this import
 
 class ShiftPlannerCardDetailsWidget extends StatelessWidget {
   const ShiftPlannerCardDetailsWidget({super.key, required this.shiftList});
   final List<ShiftList> shiftList;
+
+
+
+
+
+  String _formatDate(String dateTimeString) {
+
+      final dateTime = DateTime.parse(dateTimeString).toLocal();
+      final dateFormat = DateFormat('dd MMM. yyyy');
+      return dateFormat.format(dateTime);
+
+  }
+
+  String _formatTimeRange(String startTime, String endTime) {
+
+    final start = DateTime.parse(startTime).toLocal();
+    final end = DateTime.parse(endTime).toLocal();
+    final timeFormat = DateFormat('HH:mm');
+    return '${timeFormat.format(start)} - ${timeFormat.format(end)}';
+
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,30 +80,29 @@ class ShiftPlannerCardDetailsWidget extends StatelessWidget {
                                       "${shift.status.toString()} | ",
                                       style: AppStyles()
                                           .subTitle600ColorTextStyle(
-                                            AppColors.subTitle600Color,
-                                          ),
+                                        AppColors.subTitle600Color,
+                                      ),
                                     ),
                                     Text(
                                       shift.id.toString(),
                                       style: AppStyles()
                                           .subTitle600ColorTextStyle(
-                                            AppColors.subTitle600Color,
-                                          ),
+                                        AppColors.subTitle600Color,
+                                      ),
                                     ),
                                   ],
                                 ),
 
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        //"02 Sept.2025, 12:00 - 3:00",
-                                        "${shift.scheduledStart.toString()}, ${shift.scheduledEnd}",
+                                        // Format like "03 Nov. 2023, 08:00 - 17:00"
+                                        "${_formatDate(shift.scheduledStart.toString())},"
+                                            " ${_formatTimeRange(shift.scheduledStart.toString(),
+                                            shift.scheduledEnd.toString())}",
                                         overflow: TextOverflow.ellipsis,
-
                                         style: AppStyles().regular12TextStyle(
                                           AppColors.grey700Color,
                                         ),
@@ -101,9 +125,9 @@ class ShiftPlannerCardDetailsWidget extends StatelessWidget {
                                             );
                                             shiftDetailsNotifier
                                                 .shiftDetailsLoader(
-                                                  context,
-                                                  shift.id,
-                                                );
+                                              context,
+                                              shift.id,
+                                            );
                                           },
                                           child: SvgPicture.asset(
                                             "assets/svg_icon/keyboard_arrow_right.svg",
