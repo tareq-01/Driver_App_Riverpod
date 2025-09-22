@@ -83,7 +83,7 @@ class LoginPage extends ConsumerWidget {
                     child: ElevatedButtonStyle(
                       onTap: teState.isButtonEnable!
                           ? () async {
-                              await loginController.login(context);
+                              await loginController.login(context, ref);
                             }
                           : null,
                       text: "Sign In",

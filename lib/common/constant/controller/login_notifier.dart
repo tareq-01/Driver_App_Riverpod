@@ -91,7 +91,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
     );
   }
 
-  Future<void> login(context) async {
+  Future<void> login(context, WidgetRef ref,) async {
     NetworkResponse response = await NetworkCaller().postRequest(
       Urls.loginUrl,
       body: {
@@ -111,8 +111,9 @@ class LoginNotifier extends StateNotifier<LoginState> {
         context,
         MaterialPageRoute(builder: (context) => ShiftPlannerPage()),
       );
-      ShiftPlannerNotifier shiftPlannerNotifier = ShiftPlannerNotifier();
-      shiftPlannerNotifier.loadShiftPlannerData(context);
+      ref.read(shiftPlannerProvider.notifier).loadShiftPlannerData(context);
+      // ShiftPlannerNotifier shiftPlannerNotifier = ShiftPlannerNotifier();
+      // shiftPlannerNotifier.loadShiftPlannerData(context);
     } else {
       SnackMessage(context, "Login Failed", true);
     }
