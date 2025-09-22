@@ -1,8 +1,10 @@
 import 'package:driver_app/app/pages/shift_details_page.dart';
 import 'package:driver_app/common/constant/colors.dart';
+import 'package:driver_app/common/constant/controller/shift_details_notifier.dart';
 import 'package:driver_app/common/constant/model/shift_planner_model.dart';
 import 'package:driver_app/common/constant/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ShiftPlannerCardDetailsWidget extends StatelessWidget {
@@ -71,48 +73,51 @@ class ShiftPlannerCardDetailsWidget extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
 
                                   children: [
-                                    Wrap(
-                                      children: [
-                                        Text(
-                                          //"02 Sept.2025, 12:00 - 3:00",
-                                          "${shift.scheduledStart.toString()},",
+                                    Expanded(
+                                      child: Text(
+                                        //"02 Sept.2025, 12:00 - 3:00",
+                                        "${shift.scheduledStart.toString()}, ${shift.scheduledEnd}",
+                                        overflow: TextOverflow.ellipsis,
 
-                                          style: AppStyles().regular12TextStyle(
-                                            AppColors.grey700Color,
-                                          ),
+                                        style: AppStyles().regular12TextStyle(
+                                          AppColors.grey700Color,
                                         ),
-                                        Text(
-                                          //"02 Sept.2025, 12:00 - 3:00",
-                                          shift.scheduledEnd.toString(),
-
-                                          style: AppStyles().regular12TextStyle(
-                                            AppColors.grey700Color,
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
 
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ShiftDetailsPage(),
+                                    Consumer(
+                                      builder: (context, ref, widget) {
+                                        final shiftDetailsNotifier = ref.read(
+                                          shiftDetailsProvider.notifier,
+                                        );
+                                        return InkWell(
+                                          onTap: () async {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ShiftDetailsPage(),
+                                              ),
+                                            );
+                                            shiftDetailsNotifier
+                                                .shiftDetailsLoader(
+                                                  context,
+                                                  shift.id,
+                                                );
+                                          },
+                                          child: SvgPicture.asset(
+                                            "assets/svg_icon/keyboard_arrow_right.svg",
+                                            height: 20,
+                                            width: 20,
                                           ),
                                         );
                                       },
-                                      child: SvgPicture.asset(
-                                        "assets/svg_icon/keyboard_arrow_right.svg",
-                                        height: 20,
-                                        width: 20,
-                                      ),
                                     ),
                                   ],
                                 ),
                                 Expanded(
                                   child: Text(
-                                    shift.car.toString(),
+                                    " ${shift.car.toString()},${shift.drivers.toString()}",
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: AppStyles().address600ColorTextStyle(

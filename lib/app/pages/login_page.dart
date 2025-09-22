@@ -80,13 +80,17 @@ class LoginPage extends ConsumerWidget {
 
                   SizedBox(height: 28),
                   Center(
-                    child: ElevatedButtonStyle(
-                      onTap: teState.isButtonEnable!
-                          ? () async {
-                              await loginController.login(context, ref);
-                            }
-                          : null,
-                      text: "Sign In",
+                    child: Visibility(
+                      visible: teState.inProgress == false,
+                      replacement: Center(child: CircularProgressIndicator(),),
+                      child: ElevatedButtonStyle(
+                        onTap: teState.isButtonEnable!
+                            ? () async {
+                                await loginController.login(context, ref);
+                              }
+                            : null,
+                        text: "Sign In",
+                      ),
                     ),
                   ),
                 ],

@@ -4,36 +4,33 @@ import 'package:driver_app/common/constant/auth.dart';
 import 'package:driver_app/common/constant/controller/network_caller.dart';
 import 'package:driver_app/common/constant/controller/network_response.dart';
 import 'package:driver_app/common/constant/controller/shift_planner_notifier.dart';
-import 'package:driver_app/common/constant/response.dart';
+import 'package:driver_app/common/constant/login_state.dart';
 import 'package:driver_app/common/constant/urls.dart';
 import 'package:driver_app/common/constant/utility.dart';
 import 'package:driver_app/common/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class LoginNotifier extends StateNotifier<LoginState> {
-  // LoginNotifier(super.state);
   LoginNotifier() : super(LoginState()) {
+    // AuthUtility.clearAuthData();
     checkToken();
   }
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
-  static Future<dynamic> navigateTo(Widget page) {
-    return navigatorKey.currentState!.push(
-      MaterialPageRoute(builder: (_) => page),
-    );
-  }
-
+  TextEditingController emailTEcontroller = TextEditingController();
+  TextEditingController passTEcontroller = TextEditingController();
   Future<void> checkToken() async {
     String? token = await AuthUtility.getToken();
     log(token.toString());
     if (token != null) {
-      navigateTo(ShiftPlannerPage());
+      // navigateTo(ShiftPlannerPage());
+      navigatorKey.currentState!.push(
+        MaterialPageRoute(builder: (_) => ShiftPlannerPage()),
+      );
     }
   }
 
-  final TextEditingController emailTEcontroller = TextEditingController();
-  final TextEditingController passTEcontroller = TextEditingController();
   void showPassword() {
     state = state.copyWith(
       isObscure: !state.isObscure,
@@ -91,7 +88,8 @@ class LoginNotifier extends StateNotifier<LoginState> {
     );
   }
 
-  Future<void> login(context, WidgetRef ref,) async {
+  Future<void> login(context, WidgetRef ref) async {
+    state = state.copyWith(inProgress: true);
     NetworkResponse response = await NetworkCaller().postRequest(
       Urls.loginUrl,
       body: {
@@ -100,10 +98,10 @@ class LoginNotifier extends StateNotifier<LoginState> {
         "requestFrom": "DriverApp",
       },
     );
+
     if (response.isSuccess == true) {
       SnackMessage(context, "Login Successfully");
       String token = response.jsonResponse["data"]['token'];
-      log(token);
       await AuthUtility.saveToken(token);
       log("token: $token");
 
@@ -114,8 +112,10 @@ class LoginNotifier extends StateNotifier<LoginState> {
       ref.read(shiftPlannerProvider.notifier).loadShiftPlannerData(context);
       // ShiftPlannerNotifier shiftPlannerNotifier = ShiftPlannerNotifier();
       // shiftPlannerNotifier.loadShiftPlannerData(context);
+      state = state.copyWith(inProgress: false);
     } else {
       SnackMessage(context, "Login Failed", true);
+      state = state.copyWith(inProgress: false);
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:driver_app/app/pages/login_page.dart';
-import 'package:driver_app/app/pages/shift_planner_page.dart';
+import 'package:driver_app/common/constant/controller/login_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         }
       },
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         home: LoginPage(),
       ),

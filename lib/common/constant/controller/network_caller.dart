@@ -11,7 +11,7 @@ class NetworkCaller {
     Map<String, dynamic>? body,
   }) async {
     try {
-      Map<String, String> headers = {"Content-type":"application/json"};
+      Map<String, String> headers = {"Content-type": "application/json"};
       final response = await post(
         Uri.parse(url),
         body: jsonEncode(body),
@@ -39,29 +39,31 @@ class NetworkCaller {
 
   ///Get Request
   Future<NetworkResponse> getRequest(String url, String token) async {
-    try {
-      Map<String, String> headers = {
-        "Content-type": "application/json",
-        "Authorization": "Bearer $token",
-      };
+    // try {
+    Map<String, String> headers = {
+      "Content-type": "application/json",
+      "Authorization": "Bearer $token",
+    };
+    log(url);
 
-      final response = await get(Uri.parse(url), headers: headers);
-      if (response.statusCode == 200) {
-        log(response.body);
-        return NetworkResponse(
-          isSuccess: true,
-          statusCode: 200,
-          jsonResponse: jsonDecode(response.body),
-        );
-      } else {
-        return NetworkResponse(
-          isSuccess: false,
-          statusCode: 400,
-          jsonResponse: jsonDecode(response.body),
-        );
-      }
-    } catch (e) {
-      throw Exception(e.toString());
+    final response = await get(Uri.parse(url), headers: headers);
+    log(response.body);
+    log(response.statusCode.toString());
+    if (response.statusCode == 200) {
+      return NetworkResponse(
+        isSuccess: true,
+        statusCode: 200,
+        jsonResponse: jsonDecode(response.body),
+      );
+    } else {
+      return NetworkResponse(
+        isSuccess: false,
+        statusCode: 400,
+        jsonResponse: jsonDecode(response.body),
+      );
     }
+    // } catch (e) {
+    //   throw Exception(e.toString());
+    // }
   }
 }

@@ -7,13 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ShiftPlannerPage extends ConsumerWidget {
-  ShiftPlannerPage({super.key,});
+  const ShiftPlannerPage({super.key});
   // ShiftPlannerModel? shiftPlannerModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final shiftPlannerController = ref.read(shiftPlannerProvider.notifier);
     final shiftPlannerState = ref.watch(shiftPlannerProvider);
-        //Future.microtask(() => shiftPlannerController.loadShiftPlannerData(context));
 
     //log(inProgress.toString());
     return Scaffold(
@@ -38,7 +37,7 @@ class ShiftPlannerPage extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: Column(
               children: [
-                shiftPlannerController.inProgress
+                shiftPlannerState.inProgress!
                     ? Center(child: CircularProgressIndicator())
                     : shiftPlannerController
                                   .shiftPlannerModel
@@ -49,8 +48,8 @@ class ShiftPlannerPage extends ConsumerWidget {
                                       .shiftPlannerModel
                                       ?.data
                                       ?.shiftList ??
-                                  [])
-                              .isEmpty
+                                  []).isEmpty
+                              
                     ? Center(child: Text(" No Data found"))
                     : ShiftPlannerCardDetailsWidget(
                         shiftList: shiftPlannerController

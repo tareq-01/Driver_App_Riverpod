@@ -4,6 +4,7 @@ class LoginState {
   bool? isButtonEnable;
   bool isObscure;
   bool? isChecked;
+  bool? inProgress;
 
   LoginState({
     this.emailErrorMessage,
@@ -11,6 +12,7 @@ class LoginState {
     this.passErrorMessage,
     this.isObscure = true,
     this.isChecked = true,
+    this.inProgress = false,
   });
 
   LoginState copyWith({
@@ -19,6 +21,7 @@ class LoginState {
     String? passErrorMessage,
     bool? isObscure,
     bool? isChecked,
+    bool? inProgress,
   }) {
     return LoginState(
       emailErrorMessage: emailErrorMessage,
@@ -26,6 +29,7 @@ class LoginState {
       isButtonEnable: isButtonEnable ?? this.isButtonEnable,
       isObscure: isObscure ?? this.isObscure,
       isChecked: isChecked ?? this.isChecked,
+      inProgress: inProgress??this.inProgress ,
     );
   }
 }

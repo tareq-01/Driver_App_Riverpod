@@ -3,4 +3,7 @@ class Urls {
       "https://limadi-dev-api.caprover.infoabz.com/api/login";
   static String shiftPlannerUrl =
       "https://limadi-dev-api.caprover.infoabz.com/api/shift/filter-list";
+
+  static String shiftDetailsUrl =
+      "https://limadi-dev-api.caprover.infoabz.com/api/shift";
 }
