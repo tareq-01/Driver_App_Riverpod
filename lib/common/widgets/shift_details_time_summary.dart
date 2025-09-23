@@ -1,10 +1,11 @@
+import 'package:driver_app/common/constant/model/shift_details_model.dart';
 import 'package:driver_app/common/widgets/shift_time_summary_widget.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ShiftDetailsTimeSummaryWidget extends StatelessWidget {
-  const ShiftDetailsTimeSummaryWidget({
-    super.key,
-  });
+  ShiftDetailsTimeSummaryWidget({super.key, required this.shiftDetailsModel});
+  ShiftDetailsModel shiftDetailsModel = ShiftDetailsModel();
 
   @override
   Widget build(BuildContext context) {
@@ -14,22 +15,22 @@ class ShiftDetailsTimeSummaryWidget extends StatelessWidget {
         ShiftTimeSummaryWidget(
           Image: "assets/svg_icon/calendar_clock.svg",
           text: "Planned",
-          hour: "23hr",
+          hour: shiftDetailsModel.data!.shiftPlannedTime.toString(),
         ),
         ShiftTimeSummaryWidget(
           Image: "assets/svg_icon/clock_loader_20.svg",
           text: "Used",
-          hour: "20hr",
+          hour: shiftDetailsModel.data!.breakTime.toString(),
         ),
         ShiftTimeSummaryWidget(
           Image: "assets/svg_icon/pause.svg",
           text: "Break",
-          hour: "1hr 45m",
+          hour: shiftDetailsModel.data!.breakTime.toString(),
         ),
         ShiftTimeSummaryWidget(
           Image: "assets/svg_icon/delivery_truck_bolt.svg",
           text: "Worked",
-          hour: "18hr 15m",
+          hour: shiftDetailsModel.data!.workingTime.toString(),
         ),
       ],
     );

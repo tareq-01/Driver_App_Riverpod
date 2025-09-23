@@ -15,7 +15,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class LoginNotifier extends StateNotifier<LoginState> {
   LoginNotifier() : super(LoginState()) {
-    // AuthUtility.clearAuthData();
+     //AuthUtility.clearAuthData();
     checkToken();
   }
   TextEditingController emailTEcontroller = TextEditingController();

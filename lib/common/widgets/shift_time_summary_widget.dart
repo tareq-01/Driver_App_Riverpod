@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 // ignore: must_be_immutable
 class ShiftTimeSummaryWidget extends StatelessWidget {
+
   ShiftTimeSummaryWidget({
     super.key,
     required this.Image,
@@ -14,6 +15,7 @@ class ShiftTimeSummaryWidget extends StatelessWidget {
   String Image;
   String text;
   String hour;
+
   @override
   Widget build(BuildContext context) {
     return Row(

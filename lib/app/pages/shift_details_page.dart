@@ -1,6 +1,7 @@
 import 'package:driver_app/app/pages/shift_planner_page.dart';
 import 'package:driver_app/common/constant/colors.dart';
 import 'package:driver_app/common/constant/controller/shift_details_notifier.dart';
+import 'package:driver_app/common/constant/controller/shift_planner_notifier.dart';
 import 'package:driver_app/common/constant/text_style.dart';
 import 'package:driver_app/common/widgets/driver_details_widget.dart';
 import 'package:driver_app/common/widgets/shift_details_overview.dart';
@@ -14,6 +15,7 @@ class ShiftDetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final shiftDetailsController = ref.read(shiftDetailsProvider.notifier);
     final shiftDetailsState = ref.watch(shiftDetailsProvider);
     final width = MediaQuery.sizeOf(context).width;
@@ -93,7 +95,10 @@ class ShiftDetailsPage extends ConsumerWidget {
                                         ),
                                   ),
                                   SizedBox(height: 8),
-                                  ShiftDetailsTimeSummaryWidget(),
+                                  ShiftDetailsTimeSummaryWidget(
+                                    shiftDetailsModel: shiftDetailsController
+                                .shiftDetailsModel!
+                                  ),
                                 ],
                               ),
                             ),
@@ -101,7 +106,8 @@ class ShiftDetailsPage extends ConsumerWidget {
                           SizedBox(height: 8),
                           DriverDetailsWidget(
                             width: width,
-                            startAddress: shiftDetailsController.shiftDetailsModel!.data!.startAddress!,
+                            shiftDetailsModel: shiftDetailsController
+                                .shiftDetailsModel!
                           ),
                           SizedBox(height: 12),
                           Container(
