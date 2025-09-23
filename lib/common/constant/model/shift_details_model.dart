@@ -79,26 +79,7 @@ class Data {
           ),
   );
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "companyId": companyId,
-    "scheduledStart": scheduledStart?.toIso8601String(),
-    "scheduledEnd": scheduledEnd?.toIso8601String(),
-    "startAddress": startAddress?.toJson(),
-    "shiftInstruction": shiftInstruction,
-    "status": status,
-    "shiftPlannedTime": shiftPlannedTime,
-    "breakTime": breakTime,
-    "isOnBreak": isOnBreak,
-    "currentBreakTime": currentBreakTime,
-    "workingTime": workingTime,
-    "shiftDriverList": shiftDriverList == null
-        ? []
-        : List<dynamic>.from(shiftDriverList!.map((x) => x.toJson())),
-    "shiftVehicleList": shiftVehicleList == null
-        ? []
-        : List<dynamic>.from(shiftVehicleList!.map((x) => x.toJson())),
-  };
+
 }
 
 class ShiftDriverList {
