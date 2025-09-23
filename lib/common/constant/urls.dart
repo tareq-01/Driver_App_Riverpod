@@ -6,4 +6,5 @@ class Urls {
 
   static String shiftDetailsUrl =
       "https://limadi-dev-api.caprover.infoabz.com/api/shift";
+  static String shiftDetailsOverViewUrl="https://limadi-dev-api.caprover.infoabz.com/api/shift/details-break-down?shiftId=";
 }

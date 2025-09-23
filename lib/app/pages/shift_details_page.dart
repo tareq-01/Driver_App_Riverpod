@@ -129,7 +129,7 @@ class ShiftDetailsPage extends ConsumerWidget {
                                         ),
                                   ),
                                   SizedBox(height: 8),
-                                  ShiftDetailsOverview(),
+                                  ShiftDetailsOverview(overviewSectionModel: shiftDetailsController.overviewSectionModel!,),
                                 ],
                               ),
                             ),
