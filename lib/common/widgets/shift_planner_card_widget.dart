@@ -98,8 +98,8 @@ class ShiftPlannerCardDetailsWidget extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        // Format like "03 Nov. 2023, 08:00 - 17:00"
-                                        "${_formatDate(shift.scheduledStart.toString())},"
+
+                                        "${_formatDate(shift.scheduledEnd.toString())},"
                                             " ${_formatTimeRange(shift.scheduledStart.toString(),
                                             shift.scheduledEnd.toString())}",
                                         overflow: TextOverflow.ellipsis,
