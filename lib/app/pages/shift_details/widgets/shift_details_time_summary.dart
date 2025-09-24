@@ -1,5 +1,5 @@
 import 'package:driver_app/common/constant/model/shift_details_model.dart';
-import 'package:driver_app/common/widgets/shift_time_summary_widget.dart';
+import 'package:driver_app/app/pages/shift_list/widgets/shift_time_summary_widget.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

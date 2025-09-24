@@ -78,8 +78,6 @@ class Data {
             json["shiftVehicleList"]!.map((x) => ShiftVehicleList.fromJson(x)),
           ),
   );
-
-
 }
 
 class ShiftDriverList {

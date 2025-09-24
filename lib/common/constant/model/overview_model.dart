@@ -1,391 +1,395 @@
-class OverviewSectionfghModel {
-  int? _statusCode;
-  String? _message;
-  bool? _isSuccess;
-  Data? _data;
+class OverViewSectionModel {
+    int? statusCode;
+    String? message;
+    bool? isSuccess;
+    Data? data;
 
-  OverviewSectionfghModel(
-      {int? statusCode, String? message, bool? isSuccess, Data? data}) {
-    if (statusCode != null) {
-      this._statusCode = statusCode;
-    }
-    if (message != null) {
-      this._message = message;
-    }
-    if (isSuccess != null) {
-      this._isSuccess = isSuccess;
-    }
-    if (data != null) {
-      this._data = data;
-    }
-  }
+    OverViewSectionModel({
+        this.statusCode,
+        this.message,
+        this.isSuccess,
+        this.data,
+    });
 
-  int? get statusCode => _statusCode;
-  set statusCode(int? statusCode) => _statusCode = statusCode;
-  String? get message => _message;
-  set message(String? message) => _message = message;
-  bool? get isSuccess => _isSuccess;
-  set isSuccess(bool? isSuccess) => _isSuccess = isSuccess;
-  Data? get data => _data;
-  set data(Data? data) => _data = data;
+    factory OverViewSectionModel.fromJson(Map<String, dynamic> json) => OverViewSectionModel(
+        statusCode: json["statusCode"],
+        message: json["message"],
+        isSuccess: json["isSuccess"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    );
 
-  OverviewSectionfghModel.fromJson(Map<String, dynamic> json) {
-    _statusCode = json['statusCode'];
-    _message = json['message'];
-    _isSuccess = json['isSuccess'];
-    _data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['statusCode'] = this._statusCode;
-    data['message'] = this._message;
-    data['isSuccess'] = this._isSuccess;
-    if (this._data != null) {
-      data['data'] = this._data!.toJson();
-    }
-    return data;
-  }
 }
-
 class Data {
-  Summary? _summary;
-  List<Null>? _requestList;
-  List<Null>? _stopList;
-  List<Null>? _productList;
-  CapacitySummary? _capacitySummary;
+    Summary? summary;
+    List<RequestList>? requestList;
+    List<StopList>? stopList;
+    List<ProductList>? productList;
+    CapacitySummary? capacitySummary;
 
-  Data(
-      {Summary? summary,
-        List<Null>? requestList,
-        List<Null>? stopList,
-        List<Null>? productList,
-        CapacitySummary? capacitySummary}) {
-    if (summary != null) {
-      this._summary = summary;
-    }
-    if (requestList != null) {
-      this._requestList = requestList;
-    }
-    if (stopList != null) {
-      this._stopList = stopList;
-    }
-    if (productList != null) {
-      this._productList = productList;
-    }
-    if (capacitySummary != null) {
-      this._capacitySummary = capacitySummary;
-    }
-  }
+    Data({
+        this.summary,
+        this.requestList,
+        this.stopList,
+        this.productList,
+        this.capacitySummary,
+    });
 
-  Summary? get summary => _summary;
-  set summary(Summary? summary) => _summary = summary;
-  List<Null>? get requestList => _requestList;
-  set requestList(List<Null>? requestList) => _requestList = requestList;
-  List<Null>? get stopList => _stopList;
-  set stopList(List<Null>? stopList) => _stopList = stopList;
-  List<Null>? get productList => _productList;
-  set productList(List<Null>? productList) => _productList = productList;
-  CapacitySummary? get capacitySummary => _capacitySummary;
-  set capacitySummary(CapacitySummary? capacitySummary) =>
-      _capacitySummary = capacitySummary;
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        summary: json["summary"] == null ? null : Summary.fromJson(json["summary"]),
+        requestList: json["requestList"] == null ? [] : List<RequestList>.from(json["requestList"]!.map((x) => RequestList.fromJson(x))),
+        stopList: json["stopList"] == null ? [] : List<StopList>.from(json["stopList"]!.map((x) => StopList.fromJson(x))),
+        productList: json["productList"] == null ? [] : List<ProductList>.from(json["productList"]!.map((x) => ProductList.fromJson(x))),
+        capacitySummary: json["capacitySummary"] == null ? null : CapacitySummary.fromJson(json["capacitySummary"]),
+    );
 
-  Data.fromJson(Map<String, dynamic> json) {
-    _summary =
-    json['summary'] != null ? new Summary.fromJson(json['summary']) : null;
-    if (json['requestList'] != null) {
-      _requestList = <Null>[];
-      json['requestList'].forEach((v) {
-        _requestList!.add(new Null.fromJson(v));
-      });
-    }
-    if (json['stopList'] != null) {
-      _stopList = <Null>[];
-      json['stopList'].forEach((v) {
-        _stopList!.add(new Null.fromJson(v));
-      });
-    }
-    if (json['productList'] != null) {
-      _productList = <Null>[];
-      json['productList'].forEach((v) {
-        _productList!.add(new Null.fromJson(v));
-      });
-    }
-    _capacitySummary = json['capacitySummary'] != null
-        ? new CapacitySummary.fromJson(json['capacitySummary'])
-        : null;
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this._summary != null) {
-      data['summary'] = this._summary!.toJson();
-    }
-    if (this._requestList != null) {
-      data['requestList'] = this._requestList!.map((v) => v.toJson()).toList();
-    }
-    if (this._stopList != null) {
-      data['stopList'] = this._stopList!.map((v) => v.toJson()).toList();
-    }
-    if (this._productList != null) {
-      data['productList'] = this._productList!.map((v) => v.toJson()).toList();
-    }
-    if (this._capacitySummary != null) {
-      data['capacitySummary'] = this._capacitySummary!.toJson();
-    }
-    return data;
-  }
-}
-
-class Summary {
-  int? _shiftId;
-  int? _numberOfRequest;
-  int? _numberOfCompletedRequest;
-  int? _numberOfInCompletedRequest;
-  int? _numberOfStop;
-  int? _numberOfCompletedStop;
-  int? _numberOfInCompletedStop;
-  int? _numberOfProduct;
-  int? _numberOfCompletedProduct;
-  int? _numberOfInCompletedProduct;
-
-  Summary(
-      {int? shiftId,
-        int? numberOfRequest,
-        int? numberOfCompletedRequest,
-        int? numberOfInCompletedRequest,
-        int? numberOfStop,
-        int? numberOfCompletedStop,
-        int? numberOfInCompletedStop,
-        int? numberOfProduct,
-        int? numberOfCompletedProduct,
-        int? numberOfInCompletedProduct}) {
-    if (shiftId != null) {
-      this._shiftId = shiftId;
-    }
-    if (numberOfRequest != null) {
-      this._numberOfRequest = numberOfRequest;
-    }
-    if (numberOfCompletedRequest != null) {
-      this._numberOfCompletedRequest = numberOfCompletedRequest;
-    }
-    if (numberOfInCompletedRequest != null) {
-      this._numberOfInCompletedRequest = numberOfInCompletedRequest;
-    }
-    if (numberOfStop != null) {
-      this._numberOfStop = numberOfStop;
-    }
-    if (numberOfCompletedStop != null) {
-      this._numberOfCompletedStop = numberOfCompletedStop;
-    }
-    if (numberOfInCompletedStop != null) {
-      this._numberOfInCompletedStop = numberOfInCompletedStop;
-    }
-    if (numberOfProduct != null) {
-      this._numberOfProduct = numberOfProduct;
-    }
-    if (numberOfCompletedProduct != null) {
-      this._numberOfCompletedProduct = numberOfCompletedProduct;
-    }
-    if (numberOfInCompletedProduct != null) {
-      this._numberOfInCompletedProduct = numberOfInCompletedProduct;
-    }
-  }
-
-  int? get shiftId => _shiftId;
-  set shiftId(int? shiftId) => _shiftId = shiftId;
-  int? get numberOfRequest => _numberOfRequest;
-  set numberOfRequest(int? numberOfRequest) =>
-      _numberOfRequest = numberOfRequest;
-  int? get numberOfCompletedRequest => _numberOfCompletedRequest;
-  set numberOfCompletedRequest(int? numberOfCompletedRequest) =>
-      _numberOfCompletedRequest = numberOfCompletedRequest;
-  int? get numberOfInCompletedRequest => _numberOfInCompletedRequest;
-  set numberOfInCompletedRequest(int? numberOfInCompletedRequest) =>
-      _numberOfInCompletedRequest = numberOfInCompletedRequest;
-  int? get numberOfStop => _numberOfStop;
-  set numberOfStop(int? numberOfStop) => _numberOfStop = numberOfStop;
-  int? get numberOfCompletedStop => _numberOfCompletedStop;
-  set numberOfCompletedStop(int? numberOfCompletedStop) =>
-      _numberOfCompletedStop = numberOfCompletedStop;
-  int? get numberOfInCompletedStop => _numberOfInCompletedStop;
-  set numberOfInCompletedStop(int? numberOfInCompletedStop) =>
-      _numberOfInCompletedStop = numberOfInCompletedStop;
-  int? get numberOfProduct => _numberOfProduct;
-  set numberOfProduct(int? numberOfProduct) =>
-      _numberOfProduct = numberOfProduct;
-  int? get numberOfCompletedProduct => _numberOfCompletedProduct;
-  set numberOfCompletedProduct(int? numberOfCompletedProduct) =>
-      _numberOfCompletedProduct = numberOfCompletedProduct;
-  int? get numberOfInCompletedProduct => _numberOfInCompletedProduct;
-  set numberOfInCompletedProduct(int? numberOfInCompletedProduct) =>
-      _numberOfInCompletedProduct = numberOfInCompletedProduct;
-
-  Summary.fromJson(Map<String, dynamic> json) {
-    _shiftId = json['shiftId'];
-    _numberOfRequest = json['numberOfRequest'];
-    _numberOfCompletedRequest = json['numberOfCompletedRequest'];
-    _numberOfInCompletedRequest = json['numberOfInCompletedRequest'];
-    _numberOfStop = json['numberOfStop'];
-    _numberOfCompletedStop = json['numberOfCompletedStop'];
-    _numberOfInCompletedStop = json['numberOfInCompletedStop'];
-    _numberOfProduct = json['numberOfProduct'];
-    _numberOfCompletedProduct = json['numberOfCompletedProduct'];
-    _numberOfInCompletedProduct = json['numberOfInCompletedProduct'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['shiftId'] = this._shiftId;
-    data['numberOfRequest'] = this._numberOfRequest;
-    data['numberOfCompletedRequest'] = this._numberOfCompletedRequest;
-    data['numberOfInCompletedRequest'] = this._numberOfInCompletedRequest;
-    data['numberOfStop'] = this._numberOfStop;
-    data['numberOfCompletedStop'] = this._numberOfCompletedStop;
-    data['numberOfInCompletedStop'] = this._numberOfInCompletedStop;
-    data['numberOfProduct'] = this._numberOfProduct;
-    data['numberOfCompletedProduct'] = this._numberOfCompletedProduct;
-    data['numberOfInCompletedProduct'] = this._numberOfInCompletedProduct;
-    return data;
-  }
 }
 
 class CapacitySummary {
-  int? _shiftId;
-  int? _weightCapacityKg;
-  int? _usedWeightKg;
-  int? _remainingWeightKg;
-  int? _volumeCapacityCbm;
-  int? _usedVolumeCbm;
-  int? _remainingVolumeCbm;
-  int? _liquidCapacityLiters;
-  int? _usedLiquidLiters;
-  int? _remainingLiquidLiters;
-  int? _palletCapacity;
-  int? _usedPallets;
-  int? _remainingPallets;
+    int? shiftId;
+    dynamic weightCapacityKg;
+    dynamic? usedWeightKg;
+    dynamic remainingWeightKg;
+    dynamic volumeCapacityCbm;
+    dynamic usedVolumeCbm;
+    dynamic remainingVolumeCbm;
+    dynamic liquidCapacityLiters;
+    dynamic usedLiquidLiters;
+    dynamic remainingLiquidLiters;
+    dynamic palletCapacity;
+    dynamic usedPallets;
+    dynamic remainingPallets;
 
-  CapacitySummary(
-      {int? shiftId,
-        int? weightCapacityKg,
-        int? usedWeightKg,
-        int? remainingWeightKg,
-        int? volumeCapacityCbm,
-        int? usedVolumeCbm,
-        int? remainingVolumeCbm,
-        int? liquidCapacityLiters,
-        int? usedLiquidLiters,
-        int? remainingLiquidLiters,
-        int? palletCapacity,
-        int? usedPallets,
-        int? remainingPallets}) {
-    if (shiftId != null) {
-      this._shiftId = shiftId;
-    }
-    if (weightCapacityKg != null) {
-      this._weightCapacityKg = weightCapacityKg;
-    }
-    if (usedWeightKg != null) {
-      this._usedWeightKg = usedWeightKg;
-    }
-    if (remainingWeightKg != null) {
-      this._remainingWeightKg = remainingWeightKg;
-    }
-    if (volumeCapacityCbm != null) {
-      this._volumeCapacityCbm = volumeCapacityCbm;
-    }
-    if (usedVolumeCbm != null) {
-      this._usedVolumeCbm = usedVolumeCbm;
-    }
-    if (remainingVolumeCbm != null) {
-      this._remainingVolumeCbm = remainingVolumeCbm;
-    }
-    if (liquidCapacityLiters != null) {
-      this._liquidCapacityLiters = liquidCapacityLiters;
-    }
-    if (usedLiquidLiters != null) {
-      this._usedLiquidLiters = usedLiquidLiters;
-    }
-    if (remainingLiquidLiters != null) {
-      this._remainingLiquidLiters = remainingLiquidLiters;
-    }
-    if (palletCapacity != null) {
-      this._palletCapacity = palletCapacity;
-    }
-    if (usedPallets != null) {
-      this._usedPallets = usedPallets;
-    }
-    if (remainingPallets != null) {
-      this._remainingPallets = remainingPallets;
-    }
-  }
+    CapacitySummary({
+        this.shiftId,
+        this.weightCapacityKg,
+        this.usedWeightKg,
+        this.remainingWeightKg,
+        this.volumeCapacityCbm,
+        this.usedVolumeCbm,
+        this.remainingVolumeCbm,
+        this.liquidCapacityLiters,
+        this.usedLiquidLiters,
+        this.remainingLiquidLiters,
+        this.palletCapacity,
+        this.usedPallets,
+        this.remainingPallets,
+    });
 
-  int? get shiftId => _shiftId;
-  set shiftId(int? shiftId) => _shiftId = shiftId;
-  int? get weightCapacityKg => _weightCapacityKg;
-  set weightCapacityKg(int? weightCapacityKg) =>
-      _weightCapacityKg = weightCapacityKg;
-  int? get usedWeightKg => _usedWeightKg;
-  set usedWeightKg(int? usedWeightKg) => _usedWeightKg = usedWeightKg;
-  int? get remainingWeightKg => _remainingWeightKg;
-  set remainingWeightKg(int? remainingWeightKg) =>
-      _remainingWeightKg = remainingWeightKg;
-  int? get volumeCapacityCbm => _volumeCapacityCbm;
-  set volumeCapacityCbm(int? volumeCapacityCbm) =>
-      _volumeCapacityCbm = volumeCapacityCbm;
-  int? get usedVolumeCbm => _usedVolumeCbm;
-  set usedVolumeCbm(int? usedVolumeCbm) => _usedVolumeCbm = usedVolumeCbm;
-  int? get remainingVolumeCbm => _remainingVolumeCbm;
-  set remainingVolumeCbm(int? remainingVolumeCbm) =>
-      _remainingVolumeCbm = remainingVolumeCbm;
-  int? get liquidCapacityLiters => _liquidCapacityLiters;
-  set liquidCapacityLiters(int? liquidCapacityLiters) =>
-      _liquidCapacityLiters = liquidCapacityLiters;
-  int? get usedLiquidLiters => _usedLiquidLiters;
-  set usedLiquidLiters(int? usedLiquidLiters) =>
-      _usedLiquidLiters = usedLiquidLiters;
-  int? get remainingLiquidLiters => _remainingLiquidLiters;
-  set remainingLiquidLiters(int? remainingLiquidLiters) =>
-      _remainingLiquidLiters = remainingLiquidLiters;
-  int? get palletCapacity => _palletCapacity;
-  set palletCapacity(int? palletCapacity) => _palletCapacity = palletCapacity;
-  int? get usedPallets => _usedPallets;
-  set usedPallets(int? usedPallets) => _usedPallets = usedPallets;
-  int? get remainingPallets => _remainingPallets;
-  set remainingPallets(int? remainingPallets) =>
-      _remainingPallets = remainingPallets;
+    factory CapacitySummary.fromJson(Map<String, dynamic> json) => CapacitySummary(
+        shiftId: json["shiftId"],
+        weightCapacityKg: json["weightCapacityKg"],
+        usedWeightKg: json["usedWeightKg"],
+        remainingWeightKg: json["remainingWeightKg"],
+        volumeCapacityCbm: json["volumeCapacityCbm"],
+        usedVolumeCbm: json["usedVolumeCbm"],
+        remainingVolumeCbm: json["remainingVolumeCbm"],
+        liquidCapacityLiters: json["liquidCapacityLiters"],
+        usedLiquidLiters: json["usedLiquidLiters"],
+        remainingLiquidLiters: json["remainingLiquidLiters"],
+        palletCapacity: json["palletCapacity"],
+        usedPallets: json["usedPallets"]?.toDouble(),
+        remainingPallets: json["remainingPallets"]?.toDouble(),
+    );
 
-  CapacitySummary.fromJson(Map<String, dynamic> json) {
-    _shiftId = json['shiftId'];
-    _weightCapacityKg = json['weightCapacityKg'];
-    _usedWeightKg = json['usedWeightKg'];
-    _remainingWeightKg = json['remainingWeightKg'];
-    _volumeCapacityCbm = json['volumeCapacityCbm'];
-    _usedVolumeCbm = json['usedVolumeCbm'];
-    _remainingVolumeCbm = json['remainingVolumeCbm'];
-    _liquidCapacityLiters = json['liquidCapacityLiters'];
-    _usedLiquidLiters = json['usedLiquidLiters'];
-    _remainingLiquidLiters = json['remainingLiquidLiters'];
-    _palletCapacity = json['palletCapacity'];
-    _usedPallets = json['usedPallets'];
-    _remainingPallets = json['remainingPallets'];
-  }
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['shiftId'] = this._shiftId;
-    data['weightCapacityKg'] = this._weightCapacityKg;
-    data['usedWeightKg'] = this._usedWeightKg;
-    data['remainingWeightKg'] = this._remainingWeightKg;
-    data['volumeCapacityCbm'] = this._volumeCapacityCbm;
-    data['usedVolumeCbm'] = this._usedVolumeCbm;
-    data['remainingVolumeCbm'] = this._remainingVolumeCbm;
-    data['liquidCapacityLiters'] = this._liquidCapacityLiters;
-    data['usedLiquidLiters'] = this._usedLiquidLiters;
-    data['remainingLiquidLiters'] = this._remainingLiquidLiters;
-    data['palletCapacity'] = this._palletCapacity;
-    data['usedPallets'] = this._usedPallets;
-    data['remainingPallets'] = this._remainingPallets;
-    return data;
-  }
+class ProductList {
+    int? shiftId;
+    int? id;
+    int? stopId;
+    String? name;
+    String? status;
+    dynamic weight;
+    int? requestId;
+    dynamic height;
+    dynamic length;
+    dynamic width;
+    dynamic volume;
+    double? eupallet;
+    String? productCode;
+    String? heightUnit;
+    String? lengthUnit;
+    String? widthUnit;
+    String? weightUnit;
+    String? volumeUnit;
+    dynamic ean;
+    String? barcode;
+    String? qr;
+    String? note;
+    dynamic attachment;
+
+    ProductList({
+        this.shiftId,
+        this.id,
+        this.stopId,
+        this.name,
+        this.status,
+        this.weight,
+        this.requestId,
+        this.height,
+        this.length,
+        this.width,
+        this.volume,
+        this.eupallet,
+        this.productCode,
+        this.heightUnit,
+        this.lengthUnit,
+        this.widthUnit,
+        this.weightUnit,
+        this.volumeUnit,
+        this.ean,
+        this.barcode,
+        this.qr,
+        this.note,
+        this.attachment,
+    });
+
+    factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
+        shiftId: json["shiftId"],
+        id: json["id"],
+        stopId: json["stopId"],
+        name: json["name"],
+        status: json["status"],
+        weight: json["weight"],
+        requestId: json["requestId"],
+        height: json["height"],
+        length: json["length"],
+        width: json["width"],
+        volume: json["volume"],
+        eupallet: json["eupallet"]?.toDouble(),
+        productCode: json["productCode"],
+        heightUnit: json["heightUnit"],
+        lengthUnit: json["lengthUnit"],
+        widthUnit: json["widthUnit"],
+        weightUnit: json["weightUnit"],
+        volumeUnit: json["volumeUnit"],
+        ean: json["ean"],
+        barcode: json["barcode"],
+        qr: json["qr"],
+        note: json["note"],
+        attachment: json["attachment"],
+    );
+
+
+}
+
+class RequestList {
+    int? id;
+    int? shiftId;
+    String? category;
+    String? type;
+    dynamic numberOfStop;
+    int? numberOfProduct;
+    int? numberOfShift;
+    DateTime? scheduledStart;
+    DateTime? scheduledEnd;
+    String? status;
+
+    RequestList({
+        this.id,
+        this.shiftId,
+        this.category,
+        this.type,
+        this.numberOfStop,
+        this.numberOfProduct,
+        this.numberOfShift,
+        this.scheduledStart,
+        this.scheduledEnd,
+        this.status,
+    });
+
+    factory RequestList.fromJson(Map<String, dynamic> json) => RequestList(
+        id: json["id"],
+        shiftId: json["shiftId"],
+        category: json["category"],
+        type: json["type"],
+        numberOfStop: json["numberOfStop"],
+        numberOfProduct: json["numberOfProduct"],
+        numberOfShift: json["numberOfShift"],
+        scheduledStart: json["scheduledStart"] == null ? null : DateTime.parse(json["scheduledStart"]),
+        scheduledEnd: json["scheduledEnd"] == null ? null : DateTime.parse(json["scheduledEnd"]),
+        status: json["status"],
+    );
+}
+
+class StopList {
+    int? id;
+    int? shiftStopId;
+    int? shiftId;
+    int? requestId;
+    String? requestType;
+    int? numberOfProduct;
+    String? stopType;
+    DateTime? scheduledStart;
+    String? status;
+    Address? address;
+    dynamic contactId;
+    dynamic contactName;
+    String? name;
+    dynamic email;
+    dynamic phoneNo;
+    dynamic cvr;
+    dynamic addressId;
+    DateTime? scheduledEnd;
+    dynamic expectedServiceTimeMinutes;
+    DateTime? actualStart;
+    dynamic actualEnd;
+    String? comment;
+    bool? isSignatureRequired;
+    bool? isAttachmentRequired;
+    bool? isCommentRequired;
+    List<dynamic>? attachment;
+    dynamic verificationSignatureUrl;
+    List<dynamic>? verificationAttachmentUrl;
+    String? verificationComment;
+
+    StopList({
+        this.id,
+        this.shiftStopId,
+        this.shiftId,
+        this.requestId,
+        this.requestType,
+        this.numberOfProduct,
+        this.stopType,
+        this.scheduledStart,
+        this.status,
+        this.address,
+        this.contactId,
+        this.contactName,
+        this.name,
+        this.email,
+        this.phoneNo,
+        this.cvr,
+        this.addressId,
+        this.scheduledEnd,
+        this.expectedServiceTimeMinutes,
+        this.actualStart,
+        this.actualEnd,
+        this.comment,
+        this.isSignatureRequired,
+        this.isAttachmentRequired,
+        this.isCommentRequired,
+        this.attachment,
+        this.verificationSignatureUrl,
+        this.verificationAttachmentUrl,
+        this.verificationComment,
+    });
+
+    factory StopList.fromJson(Map<String, dynamic> json) => StopList(
+        id: json["id"],
+        shiftStopId: json["shiftStopId"],
+        shiftId: json["shiftId"],
+        requestId: json["requestId"],
+        requestType: json["requestType"],
+        numberOfProduct: json["numberOfProduct"],
+        stopType: json["stopType"],
+        scheduledStart: json["scheduledStart"] == null ? null : DateTime.parse(json["scheduledStart"]),
+        status: json["status"],
+        address: json["address"] == null ? null : Address.fromJson(json["address"]),
+        contactId: json["contactId"],
+        contactName: json["contactName"],
+        name: json["name"],
+        email: json["email"],
+        phoneNo: json["phoneNo"],
+        cvr: json["cvr"],
+        addressId: json["addressId"],
+        scheduledEnd: json["scheduledEnd"] == null ? null : DateTime.parse(json["scheduledEnd"]),
+        expectedServiceTimeMinutes: json["expectedServiceTimeMinutes"],
+        actualStart: json["actualStart"] == null ? null : DateTime.parse(json["actualStart"]),
+        actualEnd: json["actualEnd"],
+        comment: json["comment"],
+        isSignatureRequired: json["isSignatureRequired"],
+        isAttachmentRequired: json["isAttachmentRequired"],
+        isCommentRequired: json["isCommentRequired"],
+        attachment: json["attachment"] == null ? [] : List<dynamic>.from(json["attachment"]!.map((x) => x)),
+        verificationSignatureUrl: json["verificationSignatureUrl"],
+        verificationAttachmentUrl: json["verificationAttachmentUrl"] == null ? [] : List<dynamic>.from(json["verificationAttachmentUrl"]!.map((x) => x)),
+        verificationComment: json["verificationComment"],
+    );
+}
+
+class Address {
+    int? id;
+    String? address;
+    double? latitude;
+    double? longitude;
+    String? countryCode;
+    String? state;
+    String? city;
+    String? postCode;
+    String? title;
+    String? note;
+    String? floor;
+    dynamic isDefault;
+
+    Address({
+        this.id,
+        this.address,
+        this.latitude,
+        this.longitude,
+        this.countryCode,
+        this.state,
+        this.city,
+        this.postCode,
+        this.title,
+        this.note,
+        this.floor,
+        this.isDefault,
+    });
+
+    factory Address.fromJson(Map<String, dynamic> json) => Address(
+        id: json["id"],
+        address: json["address"],
+        latitude: json["latitude"]?.toDouble(),
+        longitude: json["longitude"]?.toDouble(),
+        countryCode: json["countryCode"],
+        state: json["state"],
+        city: json["city"],
+        postCode: json["postCode"],
+        title: json["title"],
+        note: json["note"],
+        floor: json["floor"],
+        isDefault: json["isDefault"],
+    );
+}
+
+class Summary {
+    int? shiftId;
+    int? numberOfRequest;
+    int? numberOfCompletedRequest;
+    int? numberOfInCompletedRequest;
+    int? numberOfStop;
+    int? numberOfCompletedStop;
+    int? numberOfInCompletedStop;
+    int? numberOfProduct;
+    int? numberOfCompletedProduct;
+    int? numberOfInCompletedProduct;
+
+    Summary({
+        this.shiftId,
+        this.numberOfRequest,
+        this.numberOfCompletedRequest,
+        this.numberOfInCompletedRequest,
+        this.numberOfStop,
+        this.numberOfCompletedStop,
+        this.numberOfInCompletedStop,
+        this.numberOfProduct,
+        this.numberOfCompletedProduct,
+        this.numberOfInCompletedProduct,
+    });
+
+    factory Summary.fromJson(Map<String, dynamic> json) => Summary(
+        shiftId: json["shiftId"],
+        numberOfRequest: json["numberOfRequest"],
+        numberOfCompletedRequest: json["numberOfCompletedRequest"],
+        numberOfInCompletedRequest: json["numberOfInCompletedRequest"],
+        numberOfStop: json["numberOfStop"],
+        numberOfCompletedStop: json["numberOfCompletedStop"],
+        numberOfInCompletedStop: json["numberOfInCompletedStop"],
+        numberOfProduct: json["numberOfProduct"],
+        numberOfCompletedProduct: json["numberOfCompletedProduct"],
+        numberOfInCompletedProduct: json["numberOfInCompletedProduct"],
+    );
 }

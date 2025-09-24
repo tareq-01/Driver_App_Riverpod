@@ -1,12 +1,12 @@
+import 'package:driver_app/common/constant/auth_provider.dart';
 import 'package:driver_app/common/constant/colors.dart';
-import 'package:driver_app/common/constant/controller/login_notifier.dart';
 import 'package:driver_app/common/widgets/elevated_button.dart';
-import 'package:driver_app/common/widgets/remember_me_widget.dart';
+import 'package:driver_app/app/pages/login/widgets/remember_me_widget.dart';
 import 'package:driver_app/common/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../common/widgets/top_title_section.dart';
+import 'widgets/top_title_section.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends ConsumerWidget {
@@ -14,9 +14,9 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loginController = ref.read(loginProvider.notifier);
+    final loginController = ref.read(AuthProvider.loginProvider.notifier);
 
-    final teState = ref.watch(loginProvider);
+    final teState = ref.watch(AuthProvider.loginProvider);
 
     return SafeArea(
       top: false,

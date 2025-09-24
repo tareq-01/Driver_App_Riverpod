@@ -1,6 +1,7 @@
 import 'dart:developer';
-import 'package:driver_app/app/pages/shift_planner_page.dart';
+import 'package:driver_app/app/pages/shift_list/shift_planner_page.dart';
 import 'package:driver_app/common/constant/auth.dart';
+import 'package:driver_app/common/constant/auth_provider.dart';
 import 'package:driver_app/common/constant/controller/network_caller.dart';
 import 'package:driver_app/common/constant/controller/network_response.dart';
 import 'package:driver_app/common/constant/controller/shift_planner_notifier.dart';
@@ -24,7 +25,6 @@ class LoginNotifier extends StateNotifier<LoginState> {
     String? token = await AuthUtility.getToken();
     log(token.toString());
     if (token != null) {
-      // navigateTo(ShiftPlannerPage());
       navigatorKey.currentState!.push(
         MaterialPageRoute(builder: (_) => ShiftPlannerPage()),
       );
@@ -88,6 +88,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
     );
   }
 
+
   Future<void> login(context, WidgetRef ref) async {
     state = state.copyWith(inProgress: true);
     NetworkResponse response = await NetworkCaller().postRequest(
@@ -103,15 +104,13 @@ class LoginNotifier extends StateNotifier<LoginState> {
       SnackMessage(context, "Login Successfully");
       String token = response.jsonResponse["data"]['token'];
       await AuthUtility.saveToken(token);
-      log("token: $token");
 
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ShiftPlannerPage()),
       );
-      ref.read(shiftPlannerProvider.notifier).loadShiftPlannerData(context);
-      // ShiftPlannerNotifier shiftPlannerNotifier = ShiftPlannerNotifier();
-      // shiftPlannerNotifier.loadShiftPlannerData(context);
+      ref.read(AuthProvider. shiftPlannerProvider.notifier).loadShiftPlannerData(context);
+  
       state = state.copyWith(inProgress: false);
     } else {
       SnackMessage(context, "Login Failed", true);
@@ -120,6 +119,4 @@ class LoginNotifier extends StateNotifier<LoginState> {
   }
 }
 
-final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
-  (ref) => LoginNotifier(),
-);
+

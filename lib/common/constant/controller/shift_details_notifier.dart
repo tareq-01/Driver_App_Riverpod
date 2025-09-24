@@ -15,7 +15,7 @@ class ShiftDetailsNotifier extends StateNotifier<ShiftDetailsState> {
   ShiftDetailsNotifier() : super(ShiftDetailsState());
 
   ShiftDetailsModel? shiftDetailsModel;
-  OverviewSectionModel?overviewSectionModel;
+  OverViewSectionModel? overViewSectionModel;
 
   Future<void> shiftDetailsLoader(context, id) async {
     try {
@@ -38,17 +38,19 @@ class ShiftDetailsNotifier extends StateNotifier<ShiftDetailsState> {
     }
   }
 
-  Future<void> overviewSectionLoader(context, id) async {
+  Future<void> overViewSectionLoader(context, id) async {
     try {
       state = state.copyWith(inProgress: true);
       final token = await AuthUtility.getToken();
-      log("Token ${token.toString()}");
+      //log("Token ${token.toString()}");
       final NetworkResponse response = await NetworkCaller().getRequest(
         "${Urls.shiftDetailsOverViewUrl}=$id",
         token.toString(),
       );
       if (response.isSuccess) {
-        overviewSectionModel = OverviewSectionModel.fromJson(response.jsonResponse);
+        overViewSectionModel = OverViewSectionModel.fromJson(
+          response.jsonResponse,
+        );
         state = state.copyWith(inProgress: false);
       } else {
         SnackMessage(context, "No Data available");
@@ -60,7 +62,4 @@ class ShiftDetailsNotifier extends StateNotifier<ShiftDetailsState> {
   }
 }
 
-final shiftDetailsProvider =
-    StateNotifierProvider<ShiftDetailsNotifier, ShiftDetailsState>(
-      (ref) => ShiftDetailsNotifier(),
-    );
+

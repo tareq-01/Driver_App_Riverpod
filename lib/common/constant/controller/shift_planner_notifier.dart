@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:driver_app/common/constant/auth.dart';
 import 'package:driver_app/common/constant/controller/login_notifier.dart';
@@ -20,8 +19,8 @@ loadShiftPlannerData(navigatorKey.currentContext!);
   ShiftPlannerModel? shiftPlannerModel;
 
   Future<void> loadShiftPlannerData(BuildContext context) async {
-   // log("here");
-    // try {
+   
+    
     state = state.copyWith(inProgress: true);
     final token = await AuthUtility.getToken();
 
@@ -40,15 +39,8 @@ loadShiftPlannerData(navigatorKey.currentContext!);
 
       state = state.copyWith(inProgress: false);
     }
-    // } catch (e) {
-    //   inProgress = false;
-
-    //   throw Exception(e.toString());
-    // }
+   
   }
 }
 
-final shiftPlannerProvider =
-    StateNotifierProvider<ShiftPlannerNotifier, ShiftPlannerState>(
-      (ref) => ShiftPlannerNotifier(),
-    );
+

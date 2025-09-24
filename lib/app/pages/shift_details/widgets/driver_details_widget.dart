@@ -1,7 +1,7 @@
 import 'package:driver_app/common/constant/colors.dart';
 import 'package:driver_app/common/constant/model/shift_details_model.dart';
 import 'package:driver_app/common/constant/text_style.dart';
-import 'package:driver_app/common/widgets/details_widget.dart';
+import 'package:driver_app/app/pages/shift_details/widgets/details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,8 +13,6 @@ class DriverDetailsWidget extends StatelessWidget {
     required this.shiftDetailsModel,
   });
   ShiftDetailsModel shiftDetailsModel = ShiftDetailsModel();
-
-  //StartAddress startAddress = StartAddress();
 
   final double width;
   String _formatDate(String dateTimeString) {
@@ -53,7 +51,6 @@ class DriverDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ShiftVehicleList> shiftVehiclesList;
     return Container(
       width: width,
       decoration: BoxDecoration(
@@ -69,7 +66,6 @@ class DriverDetailsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  //"SH386015",
                   shiftDetailsModel.data!.id.toString(),
                   style: AppStyles().subTitle600ColorTextStyle(
                     AppColors.subTitle600Color,
@@ -98,12 +94,20 @@ class DriverDetailsWidget extends StatelessWidget {
                 ),
 
                 SizedBox(height: 12),
-                DetailsWidget(
-                  title: "Co-drivers",
-                  subtitle: coDrivers(shiftDetailsModel.data!.shiftDriverList!),
-                ),
+                if (shiftDetailsModel.data!.shiftDriverList!
+                    .where((driver) => !driver.isMain!)
+                    .toList()
+                    .isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: DetailsWidget(
+                      title: "Co-drivers",
+                      subtitle: coDrivers(
+                        shiftDetailsModel.data!.shiftDriverList!,
+                      ),
+                    ),
+                  ),
 
-                SizedBox(height: 12),
                 DetailsWidget(
                   title: "Car & License",
                   subtitle: vehiclesAndLicenses(
@@ -111,12 +115,14 @@ class DriverDetailsWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 12),
-                DetailsWidget(
-                  title: "Instruction",
-                  subtitle:
-                      shiftDetailsModel.data?.shiftInstruction?.toString() ??
-                      "No instructions",
-                ),
+                if (shiftDetailsModel.data!.shiftInstruction != null &&
+                    (shiftDetailsModel.data!.shiftInstruction!).isNotEmpty)
+                  DetailsWidget(
+                    title: "Instruction",
+                    subtitle:
+                        shiftDetailsModel.data?.shiftInstruction?.toString() ??
+                        "No instructions",
+                  ),
               ],
             ),
           ],

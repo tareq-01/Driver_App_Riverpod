@@ -1,3 +1,4 @@
+
 import 'package:driver_app/common/constant/colors.dart';
 import 'package:driver_app/common/constant/text_style.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,8 @@ class OverviewDetailsWidget extends StatelessWidget {
     super.key,
     required this.title,
     required this.total,
-    required this.completed,  required this.isError,
+    required this.completed,
+    required this.isError,
   });
   final String title;
   final int total;
@@ -16,7 +18,6 @@ class OverviewDetailsWidget extends StatelessWidget {
   final bool isError;
   @override
   Widget build(BuildContext context) {
-    //int initialValue = 0;
     return Column(
       children: [
         Row(
@@ -46,28 +47,27 @@ class OverviewDetailsWidget extends StatelessWidget {
         Stack(
           children: [
             LinearProgressBar(
-              maxSteps: total,
+              maxSteps: total == 0 ? 1 : total,
 
               minHeight: 3,
-              progressType:
-                  LinearProgressBar.progressTypeLinear, // Use Linear progress
+              progressType: LinearProgressBar.progressTypeLinear,
               currentStep: completed,
 
               progressColor: AppColors.primary600Color,
               backgroundColor: AppColors.grey500Color,
               borderRadius: BorderRadius.circular(4),
             ),
-            if(isError)
-            Positioned(
-              child: Container(
-                height: 3,
-                width: 9,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: AppColors.ternary500Color
+            if (isError)
+              Positioned(
+                child: Container(
+                  height: 3,
+                  width: 9,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: AppColors.ternary500Color,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ],
